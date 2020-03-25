@@ -58,7 +58,7 @@
             </div>
             
             <div class="modal fade" tabindex="-1" role="dialog" id="modalAction">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-dialog-lg" role="document">
                     <div class="modal-content">
 
                         <div class="modal-header">
@@ -68,10 +68,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div id='feedBack' class='bg-white border d-none'>
-                                <ul>
-                                </ul>
-                            </div>
+                            <div id='feedBack'></div>
                             <?=form_open('email/send', array('id'=> 'userAction'))?>
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -153,6 +150,6 @@
         </div>
     <script>
         var table_data_src = '<?=base_url()?>restful/user/list_paged';
-        var submit_url = '<?=base_url()?>restful/user/do';
+        var submit_url = '<?=base_url()?>restful/user/form';
         var info_url = '<?=base_url()?>restful/user/detail/';
     </script>

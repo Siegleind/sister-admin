@@ -30,10 +30,13 @@ class User extends SISTER_Controller
         $data['body']['name'] = 'Manage User';
         $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';
         $data['body']['option']['stylesheet'][1] = base_url().'assets/css/modal_elegant.css';
-        $data['body']['option']['stylesheet'][2] = base_url().'assets/css/manage_user.css';
+        $data['body']['option']['stylesheet'][2] = base_url()."assets/modules/sweetalert2/sweetalert2.min.css";
+        $data['body']['option']['stylesheet'][3] = base_url().'assets/css/manage_user.css';
         $data['body']['option']['jstop'][0] = base_url().'assets/modules/DataTables/datatables.min.js';
         $data['body']['option']['jstop'][1] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.js';
-        $data['body']['option']['js'][0] = base_url().'assets/scripts/portal/manage_user.js';
+        $data['body']['option']['js'][0] = base_url()."assets/modules/sweetalert2/sweetalert2.min.js";
+        $data['body']['option']['js'][1] = base_url().'assets/scripts/portal/manage_user.js';
+        
         $data['body']['content'] = $this->load->view('portal/contents/administrator/users/index', $data['content'], TRUE);
         $this->load->view('portal/templates/sufee/template', $data['body']);
 	}

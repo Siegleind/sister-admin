@@ -63,17 +63,38 @@ $(document).ready(function() {
             data: $('#userAction').serialize(),
             dataType: "json"
         }).done(function( result ) {
+            $("#feedBack").html('');
             $("input[name='"+result.response.csrfName+"']").val(result.response.csrfHash);
             if(result.success == 1){
-                $('#modalCreate').modal('hide');
-                $('#modalSuccess').modal('show');
-                t.row.add( result.form ).draw( false );
-                $('#newUser').trigger("reset");
+                if($('#newUserMode').val() == 'create'){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'User has been created.',
+                        allowOutsideClick: false
+                    });
+                    $('#modalAction').modal('hide');
+                    $('#userAction').trigger("reset");
+                    t.row.add( result.form ).draw( false );
+                }else{
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'User has been modified.',
+                        allowOutsideClick: false
+                    });
+                    t.ajax.reload();
+                }
+                
             }else{
-                $("#feedBack ul").append('<li>'+result.message+'</li>');
-                $("#feedBack").removeClass("d-none");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed',
+                    text: 'Please check highlighted item.',
+                    allowOutsideClick: false
+                });
                 $.each(result.error, function(index, value) {
-                    $("#feedBack ul").append('<li>'+value+'</li>');
+                    $("#feedBack").append(`<div class="alert alert-danger" role="alert">${value}</div>`);
                     $("#siteAction input[name="+index+"]").addClass('border-warning');
                 });
             }
@@ -91,16 +112,15 @@ function createMode()
 function modifyMode(pid)
 {
     $('#modalAction .modal-title').html('Modify User');
-    $('#feedBack ul').html('');
-    $('#feedBack').addClass('d-none');
     $.ajax({
         method: "POST",
         url: info_url+pid,
         data: $('#userAction').serialize(),
         dataType: "json"
     }).done(function( result ) {
+        $("#feedBack").html('');
         $("input[name='"+result.response.csrfName+"']").val(result.response.csrfHash);
-        if(result.success == 1){
+        if(result.success){
             $('#userAction').trigger("reset");
             $('#newUserMode').val('modify');
             $('#newEmail').val(result.data.email);
@@ -114,13 +134,10 @@ function modifyMode(pid)
             $('#modalMessage').html('User successfully modified !');
             $('#modalAction').modal('show');
         }else{
-            $('#feedBack ul').html('');
-            $('#feedBack').removeClass('d-none');
             $.each(result.error, function(index, value) {
-                $("#feedBack ul").append('<li>'+value+'</li>');
+                $("#feedBack").append(`<div class="alert alert-danger" role="alert">${value}</div>`);
                 $("#userAction input[name="+index+"]").addClass('border-warning');
             });
-
         }
     });
 
