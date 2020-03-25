@@ -115,8 +115,9 @@ class User extends SISTER_Controller
                         $ses = $this->User_model->result;
                         $ses['logged_in'] = true;
                         $ses['attempt'] = false;
-                        foreach($this->User_model->getAllowedSite(array($ses['role_id'], $ses['role_id'])) as $site){
-                            $ses['site'][$site['site_id']] = (empty($site['is_admin']) ? 0 : 1);
+                        
+                        foreach($this->User_model->getAllowedSite($ses['role_id']) as $site){
+                            $ses['site'][$site['site_id']] = 1;
                         }
                         
                         

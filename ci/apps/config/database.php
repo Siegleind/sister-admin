@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'sushitei_portal',
-	'password' => 'W7jxbo3z=0M@',
-	'database' => 'portal',
+	'username' => 'portal_bd',
+	'password' => 'Wk9@16go',
+	'database' => 'portal_bd',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

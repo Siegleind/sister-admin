@@ -37,22 +37,14 @@ class User_model extends CI_Model
     
     function getAllowedSite($input)
     {
-        $query = $this->db->query("SELECT site_id,is_admin FROM (SELECT ps.site_id
-    FROM sushitei_portal.portal_permission pp 
-    INNER JOIN sushitei_portal.role_permission rp ON rp.permission=pp.permission_id 
-    INNER JOIN sushitei_portal.portal_sites ps ON ps.site_id=pp.permission_site 
-    WHERE rp.role= ?
-    AND pp.permission_type=1 
-    AND pp.permission_code='siteAccess') X1 
-LEFT JOIN (SELECT (pp2.permission_id IS NOT NULL) AS is_admin, ps2.site_id AS situs
-    FROM sushitei_portal.portal_permission pp2 
-    INNER JOIN sushitei_portal.role_permission rp2 ON rp2.permission=pp2.permission_id 
-    INNER JOIN sushitei_portal.portal_sites ps2 ON ps2.site_id=pp2.permission_site 
-    WHERE rp2.role= ?
-    AND pp2.permission_type=1 
-    AND pp2.permission_code='isAdmin') X2 ON X2.situs=X1.site_id", $input);
-        
-        return $query->result_array();
+        $query = $this->db->select('site_id')
+        ->from('portal_permission pp')
+        ->join('role_permission rp', 'rp.permission=pp.permission_id', 'left')
+        ->join('portal_sites ps', 'ps.site_id=pp.permission_site', 'left')
+        ->where('rp.role', $input)
+        ->where('pp.permission_type', 1)
+        ->where('pp.permission_code', 'siteAccess');
+        return $query->get()->result_array();
         
     }
     
@@ -96,9 +88,11 @@ LEFT JOIN (SELECT (pp2.permission_id IS NOT NULL) AS is_admin, ps2.site_id AS si
     public function getUserInfo($where, $select='')
     {
         if(!empty($select)) $this->db->select($select);
-        $this->db->join('user_role', 'role_id', 'left')->join('portal_store', 'store_id', 'left');
-        $this->db->from('portal_user');
-        $this->db->where($where);
+        
+        $this->db->from('portal_user')
+        ->join('user_role', 'role_id', 'left')
+        ->join('portal_store', 'store_id', 'left')
+        ->where($where);
         $this->result =$this->db->get()->row_array();
         return true;
     }
