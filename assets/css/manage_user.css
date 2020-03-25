@@ -1,0 +1,17 @@
+table.table td:last-child i {
+    opacity: 0.9;
+    font-size: 22px;
+    margin: 0 5px;
+}
+
+table.table td a {
+    font-weight: bold;
+    display: inline-block;
+    text-decoration: none;
+    outline: none !important;
+    margin: 0 5px;
+}
+
+table.table td i {
+    font-size: 19px;
+}
