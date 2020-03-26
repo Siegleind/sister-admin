@@ -24,28 +24,23 @@ class Site extends CI_Controller
         $this->load->model('PortalSite_model', 'psm');
         $this->load->helper('url');
         
-        $data['option'] = array(
-            #'result' => 10,
-            #'page' => $_POST['page'],
-            'order' => array('site_id' => 'ASC')
-        );
+        $data['option'] = [
+            'order' => ['site_id' => 'ASC']
+        ];
         $data['content'] = $this->psm->showPaged($data['option']);
         if($data['content']['total'] > 0){
             $this->output->set_content_type('application/json')->set_output(json_encode($data['content'],JSON_NUMERIC_CHECK));
         }
-        
 	}
     
-    public function do()
+    public function form()
     {
         if ($this->input->is_ajax_request()) {
             $input = array();
             if ($this->input->post('action_mode') == 'create') {
                 $this->output->set_content_type('application/json')->set_output(json_encode($this->doCreate($_POST), JSON_NUMERIC_CHECK));
             } elseif ($this->input->post('action_mode') == 'modify') {
-                {
-                    $this->output->set_content_type('application/json')->set_output(json_encode($this->doModify($_POST), JSON_NUMERIC_CHECK));
-                }
+                $this->output->set_content_type('application/json')->set_output(json_encode($this->doModify($_POST), JSON_NUMERIC_CHECK));
             }
         }
     }
@@ -55,7 +50,7 @@ class Site extends CI_Controller
         $this->load->library('form_validation');
         $_POST['sid'] = $sid;
         $this->form_validation->set_data($this->input->get());
-        $this->form_validation->set_rules('sid', 'Site ID', array('required', 'numeric', 'max_length[3]'));
+        $this->form_validation->set_rules('sid', 'Site ID', ['required', 'numeric', 'max_length[3]']);
         if ($this->form_validation->run() == FALSE){
             $output['success'] = 0;
             $output['error'] = $this->form_validation->error_array();
@@ -70,12 +65,11 @@ class Site extends CI_Controller
                 $output['message'] = 'Failed to fetch data';
             }
         }
-        $output['response'] = array(
+        $output['response'] = [
             'csrfName' => $this->security->get_csrf_token_name(),
             'csrfHash' => $this->security->get_csrf_hash()
-        );
+        ];
         $this->output->set_content_type('application/json')->set_output(json_encode($output, JSON_NUMERIC_CHECK));
-
     }
 
     private function doCreate($post)

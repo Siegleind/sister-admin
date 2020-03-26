@@ -99,7 +99,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand brand-logo" href="#">Portal</a>
-                <a class="navbar-brand hidden" href="#">ST</a>
+                <a class="navbar-brand hidden" href="#">PDB</a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -122,7 +122,7 @@
             <div class="header-menu">
 
                 <div class="col-sm-7">
-                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa-tasks"></i></a>
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa-th-list"></i></a>
                 </div>
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle nav-link text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

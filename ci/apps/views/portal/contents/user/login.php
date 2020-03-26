@@ -27,19 +27,19 @@
     <![endif]-->
     <?=link_tag('assets/images/Ico/favicon.png', 'shortcut icon', 'image/ico')?>
     <style>
-    .loader {
-         border-top: 16px solid blue;
-         border-right: 16px solid green;
-         border-bottom: 16px solid red;
-         border-left: 16px solid pink;
-    }
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    .brand{
-        border-radius: 0;
-    }
+        .loader {
+             border-top: 16px solid blue;
+             border-right: 16px solid green;
+             border-bottom: 16px solid red;
+             border-left: 16px solid pink;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .brand{
+            border-radius: 0;
+        }
     </style>
 </head>
 <body class="my-login-page">

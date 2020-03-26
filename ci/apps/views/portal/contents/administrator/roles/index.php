@@ -156,6 +156,6 @@ if(isset($list_access)){
         </div>
     <script>
         var table_data_src = '<?=base_url()?>restful/role/list_paged';
-        var submit_url = '<?=base_url()?>restful/role/do';
+        var submit_url = '<?=base_url()?>restful/role/form';
         var info_url = '<?=base_url()?>restful/role/detail/';
     </script>

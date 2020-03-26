@@ -36,7 +36,7 @@ class Permission extends CI_Controller
         
 	}
 
-    public function do()
+    public function form()
     {
         if ($this->input->is_ajax_request()) {
             if ($this->input->post('action_mode') == 'create') {
