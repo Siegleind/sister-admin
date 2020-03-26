@@ -126,6 +126,6 @@
 </div>
 <script>
 var table_data_src = '<?=base_url()?>restful/site/list_paged';
-var submit_url = '<?=base_url()?>restful/site/do';
+var submit_url = '<?=base_url()?>restful/site/form';
 var info_url = '<?=base_url()?>restful/site/detail/';
 </script>

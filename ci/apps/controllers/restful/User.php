@@ -36,7 +36,7 @@ class User extends CI_Controller
         
 	}
 
-    public function do()
+    public function form()
     {
         if ($this->input->is_ajax_request()) {
             if ($this->input->post('action_mode') == 'create') {
@@ -97,6 +97,7 @@ class User extends CI_Controller
     private function doModify($post)
     {
         $_POST = $post;
+        $output['success'] = 0;
         $this->load->library('form_validation');
         $this->form_validation->set_rules('user_id', 'User', array('required', 'numeric', 'max_length[6]'));
         $this->form_validation->set_rules('email', 'Email', array('trim', 'required', 'valid_email', 'max_length[50]'));
@@ -123,11 +124,15 @@ class User extends CI_Controller
             $data['form']['users']['user_status'] = set_value('status');
             $data['form']['users']['store_id'] = set_value('outlet');
             $data['form']['where']['user_id'] = set_value('user_id');
-            if($this->um->modifyUser($data['form']) > 0){
+            if($this->um->modifyUser($data['form'])){
                 $output['success'] = 1;
             }else{
-                $output['success'] = 0;
-                $output['message'] = 'Failed to modify user';
+                if($this->um->cerr['code'] != 0){
+                    $output['error'] = $this->um->cerr;
+                }else{
+                    $output['success'] = 1;
+                }
+                
             }
         }
         $output['response'] = array(

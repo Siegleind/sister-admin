@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User_model extends CI_Model 
 {
     public $result;
+    public $cerr;
 
     public function doLogin($input)
     {
@@ -110,6 +111,7 @@ class User_model extends CI_Model
         if ($this->db->affected_rows() > 0){
             return true;
         }else{
+            $this->cerr = $this->db->error();
             return false;
         }
     }

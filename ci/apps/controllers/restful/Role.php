@@ -36,7 +36,7 @@ class Role extends CI_Controller
         
 	}
     
-    public function do()
+    public function form()
     {
 
         if ($this->input->is_ajax_request()) {
@@ -44,9 +44,7 @@ class Role extends CI_Controller
             if ($this->input->post('action_mode') == 'create') {
                 $this->output->set_content_type('application/json')->set_output(json_encode($this->doCreate($_POST), JSON_NUMERIC_CHECK));
             } elseif ($this->input->post('action_mode') == 'modify') {
-                {
-                    $this->output->set_content_type('application/json')->set_output(json_encode($this->doModify($_POST), JSON_NUMERIC_CHECK));
-                }
+                $this->output->set_content_type('application/json')->set_output(json_encode($this->doModify($_POST), JSON_NUMERIC_CHECK));
             }
         }
     }

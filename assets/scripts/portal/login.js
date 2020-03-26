@@ -14,7 +14,7 @@
 
             //if(login == 1 && portal == 1){
             if(login == 1){
-                window.location.replace("http://portal.sushitei.co.id/");
+                window.location.replace("http://portal.bintangdelapan.com/");
             }
         }
     });
