@@ -38,7 +38,7 @@ class SISTER_Controller extends CI_Controller
     
     protected function checkAccess()
     {
-        if(!in_array($this->router->fetch_method(), $this->skipCheck)){
+        if(!empty($this->skipCheck) && !in_array($this->router->fetch_method(), $this->skipCheck)){
             if(is_array($this->SISTER->check($this->state['role_id'], uri_string()))){
                 return 1;
             }else{

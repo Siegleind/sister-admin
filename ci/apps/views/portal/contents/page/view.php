@@ -18,13 +18,11 @@
                 </div>
             </div>
         </div>
-        <div class="content p-2 m-1 row">
+        <div class="content p-2 m-1">
             <div class="card">
-                <div class="card-body">
-                    <?=$body['page_content']?>
-                    <br/>
+                <div class="card-body card-block">
+                    <?=base64_decode($body['page_content'])?>
                     
-                    <iframe class="col-12 height-75" src="https://docs.google.com/forms/d/e/1FAIpQLScoasJLMOxRISkYYRZPsbsf8-Q0bYs8bdebQB1GB-v5vYAYqA/viewform?"></iframe>
                 </div>
             </div>
             

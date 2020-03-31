@@ -9,13 +9,7 @@
         }else{
             var me = $(this);
             var forms = $("#loginForm");
-            var login = loginForm(me, forms);
-            //var portal = login_portal();
-
-            //if(login == 1 && portal == 1){
-            if(login == 1){
-                window.location.replace("http://portal.bintangdelapan.com/");
-            }
+            loginForm(me, forms);
         }
     });
     
@@ -66,7 +60,7 @@ function loginForm(me, forms)
                 $('#feedback').removeClass('d-none');
                 $('#feedback').html('Success');
                 $('#session-list').html(resp_data.session);
-                result = 1;
+                window.location.replace(resp_data.url);
             } else if(resp_data.success == 0) {
                 $("#userName").addClass("has-error");
                 $("#loginLabel").html(resp_data.message);

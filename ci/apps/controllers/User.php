@@ -12,12 +12,14 @@ class User extends SISTER_Controller
     **/
 
     public $skipCheck = array('login','logout');
-    public $success_goto = 'home/index';
+    public $success_goto = '';
     public $loggedin = 0;
 
     public function __construct() 
     {
         parent::__construct();
+        $this->load->helper('url');
+        $this->success_goto = base_url();
     }
 	
 	public function login($login = false) 
@@ -63,26 +65,24 @@ class User extends SISTER_Controller
 
     private function loginProccess()
     {
-        $return = array(
-            'success' => 0
-        );
+        $return = ['success' => 0];
         if(!$this->session->isLoggedIn()){
-            $current_attempt = $this->session->userdata('attempt');
+            $attempt = $this->session->userdata('attempt');
             $recaptcha = 1;
-            if($current_attempt > 5){
-                $opts = array('http' =>
-                    array(
+            if($attempt > 5){
+                $opts = ['http' =>
+                    [
                         'method'  => 'POST',
                         'header'  => 'Content-type: application/x-www-form-urlencoded',
                         'content' => http_build_query(
-                            array(
+                            [
                                 'secret' => '6LfvL5YUAAAAADiCFALDW1Fx1OmuN5yHe9BptoB-',
                                 'response' => $this->input->post('g-recaptcha-response'),
                                 'remoteip' => $_SERVER['REMOTE_ADDR']
-                            )
+                            ]
                         )
-                    )
-                );
+                    ]
+                ];
                 $context  = stream_context_create($opts);
                 $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
                 $result = json_decode($response);
@@ -90,10 +90,10 @@ class User extends SISTER_Controller
                     $recaptcha = 0;
                 }
             }
-            $current_attempt++;
-            $return['attempt'] = $current_attempt;
+            $attempt++;
+            $return['attempt'] = $attempt;
 
-            $this->session->set_userdata(array('attempt' => $current_attempt));
+            $this->session->set_userdata(array('attempt' => $attempt));
 
             if($this->input->post('ticket_email') && $this->input->post('ticket_password') && $recaptcha){
                 $this->load->library('form_validation');
@@ -148,10 +148,11 @@ class User extends SISTER_Controller
             $return['already_login'] = $this->session->userdata();
             $return['success'] = true;
         }
-        $return['response'] = array(
+        $return['url'] = base_url();
+        $return['response'] = [
             'csrfName' => $this->security->get_csrf_token_name(),
             'csrfHash' => $this->security->get_csrf_hash()
-        );
+        ];
         session_write_close();
         return $return;
     }

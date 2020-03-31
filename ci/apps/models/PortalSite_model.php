@@ -41,6 +41,30 @@ class PortalSite_model extends CI_Model
         }
         return $this->db->count_all_results();
     }
+    
+    public function get($select = 0, $where = 0, $opt = 0)
+    {
+        $query = $this->db->from('portal_sites');
+        
+        if($select){
+            $query->select($select);
+        }
+        
+        if(is_array($where)){
+            foreach($where as $name => $value){
+                $query->where($name, $value);
+            }
+        }
+        
+        if(isset($opt['order'])){
+            foreach($opt['order'] as $name => $direction){
+                $query->order_by($name, $direction);
+            }
+        }
+        
+        
+        return $query->get()->result_array();
+    }
 
     public function createSite($input)
     {

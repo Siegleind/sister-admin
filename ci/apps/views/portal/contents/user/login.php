@@ -57,7 +57,7 @@
                             </div>
                             <div class="row">
                                 <div class="brand col-lg-4">
-                                    <?=img('assets/images/logo.png')?>
+                                    <?=img('assets/images/favicon.jpg')?>
                                 </div>
                                 <div class="col-lg-8">
                                     <?=form_open('user/login/do', array('id'=>'loginForm'))?>
