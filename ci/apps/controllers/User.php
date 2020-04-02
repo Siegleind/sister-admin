@@ -18,6 +18,7 @@ class User extends SISTER_Controller
     public function __construct() 
     {
         parent::__construct();
+        $this->output->enable_profiler(FALSE);
         $this->load->helper('url');
         $this->success_goto = base_url();
     }

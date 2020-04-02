@@ -10,7 +10,7 @@ class HomeDashboard_model extends CI_Model
         foreach($uid['site'] as $key => $val){
             $s[] = "{$key}";
         }
-        $query = $this->db->select('ps.site_name, ps.site_color, ps.site_icon, ud.data_value, permission_url, ps.site_group')
+        $query = $this->db->select('ps.site_name, ps.site_color, ps.site_icon, ud.data_value, pp.permission_url, ps.site_group')
             ->from('user_data ud')
             ->join('portal_sites ps', 'ps.site_id=ud.data_site')
             ->join('portal_permission pp', 'pp.permission_site=ud.data_site')

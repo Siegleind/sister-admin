@@ -58,23 +58,31 @@ class Page extends CI_Controller
             $input['error'] = $this->form_validation->error_array();
         }else{
             $this->load->model('Page_model', 'pm');
-            $data['form']['page_title'] = set_value('title');
-            $data['form']['page_url'] = set_value('slug_url');
-            $data['form']['page_content'] = base64_encode(set_value('content','', false));
-            $data['form']['page_group'] = set_value('group');
-            $data['form']['page_type'] = set_value('type');
-            $data['form']['page_status'] = set_value('status');
+            $data['form'] = [
+                'page_title' => set_value('title'),
+                'page_url' => set_value('slug_url'),
+                'page_content' => base64_encode(set_value('content','', false)),
+                'page_group' => set_value('group'),
+                'page_type' => set_value('type'),
+                'page_status' => set_value('status')
+            ];
+            $data['permission'] = [
+                'permission_site' => set_value('group'),
+                'permission_name' => set_value('title'),
+                'permission_description' => set_value('title'),
+                'permission_url' => 'page/view/'.set_value('slug_url'),
+                'permission_type' => 0,
+                'permission_order' => 1,
+                'show_on_menu' => (set_value('status') == 1) ? 1 : 0
+            ];
             if($this->pm->create($data)){
+                $this->load->model('PortalPermission_model', 'ppm');
+                
                 $input['success'] = 1;
-                $input['form'] = array(
-                    'page_id' => $this->pm->db->insert_id(),
-                    'page_title' => set_value('title'),
-                    'page_content' => set_value('content'),
-                    'page_group' => 'Group',
-                    'page_type' => 'Type',
-                    'store_name' => 'Store'
+                $input['form'] = $this->pm->detail(
+                    ['page_id' => $this->pm->db->insert_id()],
+                    'page_id, page_title, page_content, site_name AS page_group, IF(page_type=1,"Dynamic","IFrame") AS page_type'
                 );
-                #$this->User_model->getUserInfo(array('user_id' => $this->User_model->db->insert_id()),'user_id,email,display_name,IF(user_status = 1, "Active", "Disabled") AS status,role_name AS group_name,store_name');
             }else{
                 $input['success'] = 0;
                 if($this->pm->db->error()['code'] == 1062)  $input['message'] = 'Email sudah terdaftar';

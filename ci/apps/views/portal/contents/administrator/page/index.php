@@ -91,15 +91,15 @@
                                         <div class="col-md-6 form-group">
                                             <label for="formType">Type</label>
                                             <select id="formType" name="type" class="form-control">
-                                                <option value="1">Dynamic (Index)</option>
-                                                <option value="2">Dynamic (Sub)</option>
-                                                <option value="3">IFrame</option>
+                                                <option value="1">Dynamic</option>
+                                                <option value="2">IFrame</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="formContent">Content</label>
-                                        <textarea id="formContent" name="content" type="text" class="form-control"></textarea>
+                                        <label for="formContentHTML">Content</label>
+                                        <textarea id="formContentHTML" name="content" type="text" class="form-control"></textarea>
+                                        <input type="text" id="formContentEmbed" name="content" class="d-none form-control" disabled>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4 form-group">

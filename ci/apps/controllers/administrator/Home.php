@@ -21,7 +21,6 @@ class Home extends SISTER_Controller
     
     public function index()
     {
-        $this->session->isLoggedIn(true);
         $this->load->model('Admindashboard_model');
         $this->load->helper('html','url');
         $data['content']['dashboard'] = $this->Admindashboard_model->getContent();

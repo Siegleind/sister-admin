@@ -10,7 +10,7 @@ class User extends SISTER_Controller
 
     ==========================
     **/
-    public $skipCheck = array('index');
+    public $skipCheck = [];
     public $onUnauthorized = array('view', 'errors/custom_unauthorized');
 
     public function __construct() 

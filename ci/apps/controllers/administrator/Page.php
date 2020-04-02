@@ -26,7 +26,7 @@ class Page extends SISTER_Controller
         $this->load->model('PortalSite_model','psm');
         $data['content']['role'] = $this->rm->getRole(0, 0, array('order' => array('role_name' => 'ASC')));
         $data['content']['page'] = 'Page Content Management';
-        $data['content']['site_list'] = $this->psm->get(0, 0, array('order' => array('site_name' => 'ASC')));
+        $data['content']['site_list'] = $this->psm->get(0, ['site_id !=' => 1], array('order' => array('site_name' => 'ASC')));
         $data['body']['session'] = $this->state;
         $data['body']['name'] = 'Manage User';
         $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';
@@ -36,8 +36,8 @@ class Page extends SISTER_Controller
         $data['body']['option']['jstop'][0] = base_url().'assets/modules/DataTables/datatables.min.js';
         $data['body']['option']['jstop'][1] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.js';
         $data['body']['option']['js'][0] = base_url()."assets/modules/sweetalert2/sweetalert2.min.js";
-        $data['body']['option']['js'][1] = 'https://cdn.tiny.cloud/1/ac8vl608lzhhnafxjo43ctedghy1apnuo9tc10739j83c8sp/tinymce/5/tinymce.min.js';
-        $data['body']['option']['js'][2] = 'https://cdn.tiny.cloud/1/ac8vl608lzhhnafxjo43ctedghy1apnuo9tc10739j83c8sp/tinymce/5/jquery.tinymce.min.js';
+        $data['body']['option']['js'][1] = base_url().'assets/modules/Tinymce-5.1.2/tinymce.min.js';
+        $data['body']['option']['js'][2] = base_url().'assets/modules/Tinymce-5.1.2/jquery.tinymce.min.js';
         $data['body']['option']['js'][3] = base_url().'assets/scripts/portal/manage_page.js';
         
         $data['body']['content'] = $this->load->view('portal/contents/administrator/page/index', $data['content'], TRUE);

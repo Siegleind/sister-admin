@@ -4,8 +4,24 @@ $(document).ready(function() {
     $('#menuToggle').on('click', function(event) {
         $('body').toggleClass('open');
     });
+    
+    $('#formType').on('change', function(event) {
+        if($(this).val() == 1){
+            $("#formContentEmbed").prop('disabled', true);
+            $("#formContentHTML").prop('disabled', false);
+            $("#formContentEmbed").addClass('d-none');
+            $(".tox").removeClass('d-none');
+            $("#formContentHTML").removeClass('d-none');
+        }else if($(this).val() == 2){
+            $("#formContentEmbed").prop('disabled', false);
+            $("#formContentHTML").prop('disabled', true);
+            $(".tox").addClass('d-none');
+            $("#formContentEmbed").removeClass('d-none');
+            $("#formContentHTML").addClass('d-none');
+        }
+    });
 
-    $('#formContent').tinymce({
+    $('#formContentHTML').tinymce({
         
         width: 700,
         menubar: "file edit insert view format table tools help",

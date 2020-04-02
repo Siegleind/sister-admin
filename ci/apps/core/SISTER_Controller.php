@@ -8,10 +8,12 @@ class SISTER_Controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if(ENVIRONMENT == 'development'){
+            $this->output->enable_profiler(TRUE);
+        }
         $this->load->library('session');
         $this->state = $this->session->userdata();
-        
-        $this->load->helper(array('url','cookie'));
+        $this->load->helper(['url','cookie']);
         $this->load->model('SisterController_model', 'SISTER');
         if(!$this->checkAccess()){
             if(!empty($this->onUnauthorized) && is_array($this->onUnauthorized)){
@@ -24,7 +26,6 @@ class SISTER_Controller extends CI_Controller
                         break;
                     default:
                         redirect($this->onUnauthorized[1]);
-                        exit;
                 }
             }
         }else{
@@ -38,14 +39,17 @@ class SISTER_Controller extends CI_Controller
     
     protected function checkAccess()
     {
-        if(!empty($this->skipCheck) && !in_array($this->router->fetch_method(), $this->skipCheck)){
-            if(is_array($this->SISTER->check($this->state['role_id'], uri_string()))){
-                return 1;
-            }else{
-                return 0;
-            }
+        if(!empty($this->skipCheck) && in_array($this->router->method, $this->skipCheck)){
+            return true;
+            
         }else{
-            return 1;
+            if(is_array($this->SISTER->check($this->state['role_id'], $this->uri->uri_string()))){
+                
+                return true;
+            }else{
+                
+                return false;
+            }
         }
     }
     

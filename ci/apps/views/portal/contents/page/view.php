@@ -21,7 +21,13 @@
         <div class="content p-2 m-1">
             <div class="card">
                 <div class="card-body card-block">
-                    <?=base64_decode($body['page_content'])?>
+                    <?php
+                        if($body['page_type'] == 1){
+                            echo base64_decode($body['page_content']);
+                        }else{
+                            echo "<iframe width='100%' height='600' src='".base64_decode($body['page_content'])."'></iframe>";
+                        }
+                    ?>
                     
                 </div>
             </div>

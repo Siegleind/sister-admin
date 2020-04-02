@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Page_model extends CI_Model
 {
     public $result;
+    public $page_id;
 
     public function paged($opt, $where=array(), $like=array())
     {
@@ -71,6 +72,7 @@ class Page_model extends CI_Model
     {
         $this->db->trans_start();
         $this->db->insert('portal_page', $input['form']);
+        $this->db->insert('portal_permission', $input['permission']);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE){
             return 0;

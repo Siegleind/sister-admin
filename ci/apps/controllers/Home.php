@@ -23,7 +23,6 @@ class Home extends SISTER_Controller
     
     public function index()
     {
-        #exit(print_r($_SESSION));
         $this->load->helper('html','url');
         $this->load->model('HomeDashboard_model', 'hdm');
         $data['content']['dashboard'] = $this->hdm->getDashboard($this->state);
