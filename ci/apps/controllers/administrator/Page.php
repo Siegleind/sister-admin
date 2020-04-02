@@ -36,8 +36,8 @@ class Page extends SISTER_Controller
         $data['body']['option']['jstop'][0] = base_url().'assets/modules/DataTables/datatables.min.js';
         $data['body']['option']['jstop'][1] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.js';
         $data['body']['option']['js'][0] = base_url()."assets/modules/sweetalert2/sweetalert2.min.js";
-        $data['body']['option']['js'][1] = base_url().'assets/modules/Tinymce-5.1.2/tinymce.min.js';
-        $data['body']['option']['js'][2] = base_url().'assets/modules/Tinymce-5.1.2/jquery.tinymce.min.js';
+        $data['body']['option']['js'][1] = base_url().'assets/modules/tinymce-5.1.2/tinymce.min.js';
+        $data['body']['option']['js'][2] = base_url().'assets/modules/tinymce-5.1.2/jquery.tinymce.min.js';
         $data['body']['option']['js'][3] = base_url().'assets/scripts/portal/manage_page.js';
         
         $data['body']['content'] = $this->load->view('portal/contents/administrator/page/index', $data['content'], TRUE);
