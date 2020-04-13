@@ -7,8 +7,10 @@ class HomeDashboard_model extends CI_Model
 
     public function getDashboard($uid)
     {
-        foreach($uid['site'] as $key => $val){
-            $s[] = "{$key}";
+        if(count($uid['site']) > 0){
+            foreach($uid['site'] as $key => $val){
+                $s[] = "{$key}";
+            }
         }
         $query = $this->db->select('ps.site_name, ps.site_color, ps.site_icon, ud.data_value, pp.permission_url, ps.site_group')
             ->from('user_data ud')

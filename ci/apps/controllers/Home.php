@@ -25,7 +25,8 @@ class Home extends SISTER_Controller
     {
         $this->load->helper('html','url');
         $this->load->model('HomeDashboard_model', 'hdm');
-        $data['content']['dashboard'] = $this->hdm->getDashboard($this->state);
+        #$data['content']['dashboard'] = $this->hdm->getDashboard($this->state);
+        $data['content']['dashboard'] = [];
         $data['content']['session'] = $this->state;
         #print_r($this->db->last_query());
         $data['body']['page'] = 'Dashboard';

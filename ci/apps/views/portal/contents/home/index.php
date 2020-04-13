@@ -3,35 +3,36 @@ $site = '';
 $i = 0;
 $il = 1;
 $l = 3;
-while($i < count($dashboard)){
-    if($il == 1){
-        $site .= '<div class="card-deck-wrapper">
-            <div class="card-deck mb-4">';
-    }
-    $il++;
-    $site .= "
-                <div class=\"card text-white {$dashboard[$i]['site_color']}\">
-                    <div class=\"card-header text-uppercase font-weight-bold\">{$dashboard[$i]['site_name']}</div>
-                    <div class=\"card-body \">
-                        <a href=\"".base_url().$dashboard[$i]['permission_url']."\" target=\"_blank\" class=\"card-block stretched-link text-decoration-none\">
-                            <div class='col-sm-6'>
-                                <i class=\"fa {$dashboard[$i]['site_icon']} fa-2x text-white\"></i>
-                            </div>
-                            <div class='col-sm-6'>
-                                <p class=\"card-text float-left text-white\"> Total {$dashboard[$i]['data_value']} Tickets.</p>
-                            </div>
-                        </a>
+if(count($dashboard) > 0){
+    while($i < count($dashboard)){
+        if($il == 1){
+            $site .= '<div class="card-deck-wrapper">
+                <div class="card-deck mb-4">';
+        }
+        $il++;
+        $site .= "
+                    <div class=\"card text-white {$dashboard[$i]['site_color']}\">
+                        <div class=\"card-header text-uppercase font-weight-bold\">{$dashboard[$i]['site_name']}</div>
+                        <div class=\"card-body \">
+                            <a href=\"".base_url().$dashboard[$i]['permission_url']."\" target=\"_blank\" class=\"card-block stretched-link text-decoration-none\">
+                                <div class='col-sm-6'>
+                                    <i class=\"fa {$dashboard[$i]['site_icon']} fa-2x text-white\"></i>
+                                </div>
+                                <div class='col-sm-6'>
+                                    <p class=\"card-text float-left text-white\"> Total {$dashboard[$i]['data_value']} Tickets.</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            ";
-    if($il == $l){
-        $site .= '</div>
-        </div>';
-        $il = 1;
+                ";
+        if($il == $l){
+            $site .= '</div>
+            </div>';
+            $il = 1;
+        }
+        $i++;
     }
-    $i++;
 }
-
 ?>
         <div class="breadcrumbs">
             <div class="col-sm-4">
