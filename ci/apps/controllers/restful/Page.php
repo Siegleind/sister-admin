@@ -73,7 +73,7 @@ class Page extends CI_Controller
                 'permission_url' => 'page/view/'.set_value('slug_url'),
                 'permission_type' => 0,
                 'permission_order' => 1,
-                'show_on_menu' => (set_value('status') == 1) ? 1 : 0
+                'show_on_menu' => 1
             ];
             if($this->pm->create($data)){
                 $this->pm->detail(

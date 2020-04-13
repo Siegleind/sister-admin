@@ -25,7 +25,7 @@
                         if($body['page_type'] == 1){
                             echo base64_decode($body['page_content']);
                         }else{
-                            echo "<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='".base64_decode($body['page_content'])."'></iframe>";
+                            echo "<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='".base64_decode($body['page_content'])."' allowfullscreen></iframe>";
                         }
                     ?>
                     
