@@ -9,24 +9,27 @@ class SISTER_Controller extends CI_Controller
     {
         parent::__construct();
         if(ENVIRONMENT == 'development'){
-            #$this->output->enable_profiler(TRUE);
+            $this->output->enable_profiler(TRUE);
         }
         $this->load->library('session');
         $this->state = $this->session->userdata();
         $this->load->helper(['url','cookie']);
         $this->load->model('SisterController_model', 'SISTER');
         if(!$this->checkAccess()){
+            $data['content']['page'] = 'Error';
+            $data['content']['session'] = $this->state;
             if(!empty($this->onUnauthorized) && is_array($this->onUnauthorized)){
                 switch($this->onUnauthorized[0]){
                     case 'view':
-                        $data['content']['page'] = 'Error';
-                        $data['content']['session'] = $this->state;
                         $data['body']['content'] = $this->load->view($this->onUnauthorized[1], $data['content'], TRUE);
                         exit($this->load->view('portal/templates/sufee/template', $data['body'], TRUE));
                         break;
                     default:
                         redirect($this->onUnauthorized[1]);
                 }
+            }else{
+                $data['body']['content'] = $this->load->view('errors/custom_unauthorized', $data['content'], TRUE);
+                exit($this->load->view('portal/templates/sufee/template', $data['body'], TRUE));
             }
         }else{
             set_cookie('last_url', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '3600'); 
@@ -47,7 +50,6 @@ class SISTER_Controller extends CI_Controller
                 
                 return true;
             }else{
-                
                 return false;
             }
         }

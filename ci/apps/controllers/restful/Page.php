@@ -141,6 +141,8 @@ class Page extends CI_Controller
                 $ppm['where']['permission_url'] = "page/view/{$detail['page_url']}";
                 if(set_value('status') == 0 || set_value('status') == 2){
                     $ppm['form']['show_on_menu'] = 0;
+                }else{
+                    $ppm['form']['show_on_menu'] = 1;
                 }
                 
                 if($this->pm->modify($data, $ppm)){
