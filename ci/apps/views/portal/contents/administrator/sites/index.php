@@ -117,7 +117,7 @@
                 </div>
                 <div class="modal-body text-center">
                     <h4 id='modalTitle'>Great!</h4>
-                    <p id="modalMessage">User account successfully created.</p>
+                    <p id="modalMessage">Site successfully created.</p>
                     <button class="btn btn-success" data-dismiss="modal"><i class="fa fa-play"></i> Continue</button>
                 </div>
             </div>

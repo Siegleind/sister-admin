@@ -62,7 +62,12 @@ class PortalPermission_model extends CI_Model
         $this->db->from('portal_permission pp')
         ->join('portal_sites ps', 'ps.site_id=pp.permission_site', 'left')
         ->where($where);
-        $this->result =$this->db->get()->row_array();
-        return true;
+        
+        $this->result = $this->db->get()->row_array();
+        if(is_array($this->result)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

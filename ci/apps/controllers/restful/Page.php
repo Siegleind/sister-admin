@@ -17,14 +17,14 @@ class Page extends CI_Controller
     {
         parent::__construct();
         $this->load->library('session');
+        $this->load->helper('url');
     }
 	
 	public function get() 
 	{
         $this->load->model('Page_model', 'pm');
-        $this->load->helper('url');
         
-        $data['content'] = $this->pm->get('page_id, page_title, page_content, page_group, page_type, page_status, "'.base_url().'page/view/" AS page_domain, page_url',['page_status !=' => '0'],['order' => ['page_title' => 'ASC']]);
+        $data['content'] = $this->pm->get('page_id, page_title, page_content, site_name AS page_group, IF(page_type=1,"Dynamic","IFrame") AS page_type, CASE page_status WHEN 1 THEN "Published" WHEN 2 THEN "Unpublished" ELSE "DELETED" END AS page_status, "'.base_url().'page/view/" AS page_domain, page_url',['page_status !=' => '0'],['order' => ['page_title' => 'ASC']]);
         if($data['content']['total'] > 0){
             $this->output->set_content_type('application/json')->set_output(json_encode($data['content'],JSON_NUMERIC_CHECK));
         }
@@ -76,13 +76,13 @@ class Page extends CI_Controller
                 'show_on_menu' => (set_value('status') == 1) ? 1 : 0
             ];
             if($this->pm->create($data)){
-                $this->load->model('PortalPermission_model', 'ppm');
-                
-                $input['success'] = 1;
-                $input['form'] = $this->pm->detail(
-                    ['page_id' => $this->pm->db->insert_id()],
-                    'page_id, page_title, page_content, site_name AS page_group, IF(page_type=1,"Dynamic","IFrame") AS page_type'
+                $this->pm->detail(
+                    ['page_id' => $this->pm->page_id],
+                    'page_id, page_title, page_content, site_name AS page_group, IF(page_type=1,"Dynamic","IFrame") AS page_type, CASE page_status WHEN 1 THEN "Published" WHEN 2 THEN "Unpublished" ELSE "DELETED" END AS page_status, "'.base_url().'page/view/" AS page_domain, page_url'
                 );
+                $input['test'] = $this->pm->page_id;
+                $input['success'] = 1;
+                $input['form'] = $this->pm->result;
             }else{
                 $input['success'] = 0;
                 if($this->pm->db->error()['code'] == 1062)  $input['message'] = 'Email sudah terdaftar';
@@ -109,15 +109,15 @@ class Page extends CI_Controller
             $output['success'] = 0;
             $output['error'] = $this->form_validation->error_array();
         }else{
+            $this->pm->detail(['page_id' => set_value('form_id')]);
             $_POST['slug_url'] = $this->createSlug($_POST['title']);
-            $detail = $this->pm->detail(['page_id' => set_value('form_id')]);
+            $detail = $this->pm->result;
             $this->form_validation->reset_validation();
             if(!empty($detail['page_url']) && $detail['page_url'] != $_POST['slug_url']){
                 $this->form_validation->set_rules('slug_url', 'Title', array('trim', 'required', 'max_length[100]', 'is_unique[portal_page.page_url]'));
-                $data['form']['page_title'] = set_value('slug_url');
             }
-                
             
+               
             $this->form_validation->set_rules('title', 'Title', array('trim', 'required', 'alpha_numeric_spaces', 'max_length[50]'));
             $this->form_validation->set_rules('content', 'Content', array('required'));
             $this->form_validation->set_rules('group', 'Group', array('trim', 'required', 'numeric', 'max_length[6]'));
@@ -127,13 +127,23 @@ class Page extends CI_Controller
                 $output['success'] = 0;
                 $output['error'] = $this->form_validation->error_array();
             }else{
+                $data['form']['page_url'] = set_value('slug_url', '');
                 $data['form']['page_title'] = set_value('title');
                 $data['form']['page_content'] = base64_encode(set_value('content','', false));
                 $data['form']['page_group'] = set_value('group');
                 $data['form']['page_type'] = set_value('type');
                 $data['form']['page_status'] = set_value('status');
                 $data['where']['page_id'] = set_value('form_id');
-                if($this->pm->modify($data)){
+                $ppm['form']['permission_name'] = set_value('title');
+                $ppm['form']['permission_site'] = set_value('group');
+                $ppm['form']['permission_description'] = set_value('title');
+                $ppm['form']['permission_url'] = 'page/view/'.set_value('slug_url', 'index');
+                $ppm['where']['permission_url'] = "page/view/{$detail['page_url']}";
+                if(set_value('status') == 0 || set_value('status') == 2){
+                    $ppm['form']['show_on_menu'] = 0;
+                }
+                
+                if($this->pm->modify($data, $ppm)){
                     $output['success'] = 1;
                 }else{
                     if($this->pm->cerr['code'] != 0){

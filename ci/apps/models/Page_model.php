@@ -37,7 +37,7 @@ class Page_model extends CI_Model
         $query = $this->db->from('portal_page')->join('portal_sites ps', 'ps.site_id=portal_page.page_group', 'left');
         
         if($select){
-            $query->select($select);
+            $query->select($select, FALSE);
         }
         
         if(!empty($where)){
@@ -72,6 +72,7 @@ class Page_model extends CI_Model
     {
         $this->db->trans_start();
         $this->db->insert('portal_page', $input['form']);
+        $this->page_id = $this->db->insert_id();
         $this->db->insert('portal_permission', $input['permission']);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE){
@@ -81,9 +82,10 @@ class Page_model extends CI_Model
         }
     }
 
-    public function modify($input)
+    public function modify($input, $ppm)
     {
         $this->db->trans_start();
+        $this->db->update('portal_permission', $ppm['form'], $ppm['where']);
         $this->db->update('portal_page', $input['form'], $input['where']);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE){
@@ -96,12 +98,11 @@ class Page_model extends CI_Model
 
     public function detail($where, $select='')
     {
-        if(!empty($select)) $this->db->select($select);
+        $q = $this->db->from('portal_page');
+        if(!empty($select)) $q->select($select, FALSE);
         
-        $this->db->from('portal_page')
-        ->join('portal_sites ps', 'ps.site_id=portal_page.page_group', 'left')
-        ->where($where);
-        $this->result =$this->db->get()->row_array();
+        $q->join('portal_sites ps', 'ps.site_id=portal_page.page_group', 'left')->where($where);
+        $this->result =$q->get()->row_array();
         return true;
     }
 }

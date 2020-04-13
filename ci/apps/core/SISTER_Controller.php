@@ -9,7 +9,7 @@ class SISTER_Controller extends CI_Controller
     {
         parent::__construct();
         if(ENVIRONMENT == 'development'){
-            $this->output->enable_profiler(TRUE);
+            #$this->output->enable_profiler(TRUE);
         }
         $this->load->library('session');
         $this->state = $this->session->userdata();

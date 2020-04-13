@@ -27,11 +27,11 @@ $(document).ready(function() {
         menubar: "file edit insert view format table tools help",
         plugins: [
             "advlist autolink lists link charmap print preview anchor",
-            "searchreplace visualblocks code fullscreen pageembed",
+            "searchreplace visualblocks code fullscreen",
             "insertdatetime media table paste image imagetools",
             "table"
         ],
-        toolbar: "pageembed insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools",
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools",
         paste_data_images: true,
         file_picker_types: 'image',
   /* and here's our custom image picker*/
@@ -91,22 +91,7 @@ $(document).ready(function() {
             },
             { "data": "page_group" },
             { "data": "page_type" },
-            {
-                "data": "page_status",
-                "searchable": true,
-                "orderable": true,
-                "render": function ( data, type, row, meta ) {
-                    var output = '';
-                    if(data == 1){
-                        output = 'Published';
-                    }else if(data == 2){
-                        output = 'Unpublished';
-                    }else{
-                        output = 'Deleted';
-                    }
-                    return output;
-                }
-            },
+            { "data": "page_status"},
             {
                 "data": "page_id",
                 "searchable": false,
@@ -206,8 +191,13 @@ function modifyMode(pid)
             $('#formMode').val('modify');
             $('#formID').val(result.data.page_id);
             $('#formTitle').val(result.data.page_title);
-            $('#formContent').html(atob(result.data.page_content));
             $('#formGroup').val(result.data.page_group);
+            console.log(result.data.page_type);
+            if(result.data.page_type == 1){
+                $('#formContentHTML').html(atob(result.data.page_content));
+            }else{
+                $('#formContentEmbed').val(atob(result.data.page_content));
+            }
             $('#formType').val(result.data.page_type);
             $('#formStatus').val(result.data.page_status);
             $('#modalForm').modal('show');

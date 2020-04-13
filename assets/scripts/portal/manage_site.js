@@ -5,8 +5,6 @@ $(document).ready(function() {
         new SelectFx(el);
     } );
 
-    $('.selectpicker').selectpicker;
-
 
     $('#menuToggle').on('click', function(event) {
         $('body').toggleClass('open');
@@ -23,7 +21,15 @@ $(document).ready(function() {
         event.stopPropagation();
         $('.search-trigger').parent('.header-left').removeClass('open');
     });
-
+    
+    $('#newSiteIcon').iconpicker({
+        placement: 'bottomLeft',
+        fullClassFormatter: function(val) {
+            return val;
+        },
+        hideOnSelect: true
+    });
+    
     var t = $('#siteData').DataTable({
         ajax: table_data_src,
         columns: [
@@ -103,7 +109,7 @@ $(document).ready(function() {
                     $('#modalAction').modal('hide');
                     $('#modalSuccess').modal('show');
                     $('#newUser').trigger("reset");
-                    t.row.add( result.form ).draw( false );
+                    t.ajax.reload();
                 }else{
                     $.each(result.error, function(index, value) {
                         $("#feedBack ul").append('<li>'+value+'</li>');
@@ -158,7 +164,7 @@ function modifyMode(pid)
             $('#newSiteStatus').val(result.data.site.site_status);
             /*Error here*/
             $('#modalTitle').html('Great !');
-            $('#modalMessage').html('Sites created successfully !');
+            $('#modalMessage').html('Sites modified successfully !');
             $('#modalAction').modal('show');
         }else{
             $('#feedBack ul').html('');

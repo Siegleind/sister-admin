@@ -55,28 +55,22 @@
     <link rel="stylesheet" href="<?=base_url();?>assets/modules/sufee/assets/css/normalize.css">
     <link rel="stylesheet" href="<?=base_url();?>assets/modules/bootstrap-4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?=base_url();?>assets/modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?=base_url();?>assets/modules/sufee/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="<?=base_url();?>assets/modules/sufee/assets/css/flag-icon.min.css">
-    <link rel="stylesheet" href="<?=base_url();?>assets/modules/sufee/assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
     <link rel="stylesheet" href="<?=base_url();?>assets/modules/sufee/assets/scss/style.css">
-    <link href="<?=base_url();?>assets/modules/sufee/assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?=base_url();?>assets/css/main.css">
+    
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-    <?php
-        if(isset($option['stylesheet']) && count($option['stylesheet']) > 0){
-            foreach($option['stylesheet'] as $css){
-                echo "  <link rel='stylesheet' type='text/css' href='{$css}'>
-        ";
-            }
-        }
-    ?>
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' type='text/css'>
+    <?php if(isset($option['stylesheet']) && count($option['stylesheet']) > 0): foreach($option['stylesheet'] as $css): ?>
+            
+    <link rel="stylesheet" href='<?=$css?>' type='text/css'>
+    
+    <?php endforeach; endif; ?>
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+    <script src="https://kit.fontawesome.com/23952b4999.js" crossorigin="anonymous"></script>
     <script src="<?=base_url();?>assets/modules/jquery/jquery-3.3.1.min.js"></script>
     <script src="<?=base_url();?>assets/modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="<?=base_url();?>assets/modules/bootstrap-4.3.1/js/bootstrap.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <?php
     if(isset($option['jstop']) && count($option['jstop']) > 0){
         foreach($option['jstop'] as $js){

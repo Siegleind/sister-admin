@@ -105,6 +105,7 @@
                                         <div class="col-md-4 form-group">
                                             <label for="formStatus">Status</label>
                                             <select id="formStatus" name="status" class="form-control">
+                                                <option value="0">Deleted</option>
                                                 <option value="1" selected>Published</option>
                                                 <option value="2">Unpublished</option>
                                             </select>

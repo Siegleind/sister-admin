@@ -70,6 +70,14 @@ class PortalSite_model extends CI_Model
     {
         $this->db->trans_start();
         $this->db->insert('portal_sites', $input['sites']);
+        $pp['permission_site'] = $this->db->insert_id();
+        $pp['permission_name'] = $input['sites']['site_name'];
+        $pp['permission_type'] = 1;
+        $pp['permission_description'] = "Access to {$input['sites']['site_name']}";
+        $pp['permission_icon'] = $input['sites']['site_icon'];
+        $pp['permission_code'] = 'siteAccess';
+        $pp['show_on_menu'] = 1;
+        $this->db->insert('portal_permission', $pp);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE){
             return 0;
@@ -82,6 +90,13 @@ class PortalSite_model extends CI_Model
     {
         $this->db->trans_start();
         $this->db->update('portal_sites', $input['sites'], $input['where']);
+        $pp['input']['permission_name'] = $input['sites']['site_name'];
+        $pp['input']['permission_description'] = "Access to {$input['sites']['site_name']}";
+        $pp['input']['permission_icon'] = $input['sites']['site_icon'];
+        $pp['input']['show_on_menu'] = $input['sites']['site_status'];
+        $pp['where']['permission_site'] = $input['where']['site_id'];
+        $pp['where']['permission_code'] = 'siteAccess';
+        $this->db->update('portal_permission', $pp['input'], $pp['where']);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE){
             return 0;
