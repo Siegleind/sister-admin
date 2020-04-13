@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://localhost/';
+$config['base_url'] = 'https://portal.bintangdelapan.com/';
 $config['site_name'] = '';
 /*
 |--------------------------------------------------------------------------
