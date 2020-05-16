@@ -24,7 +24,7 @@ class SisterController_model extends CI_Model
         foreach($input as $key => $val){
             $s[] = "{$key}";
         }
-        $query = $this->db->select('pp.permission_site,ps.site_name,ps.site_icon,pp.permission_order,pp.permission_name,pp.permission_url,ps.site_group')
+        $query = $this->db->select('pp.permission_site,ps.site_name,ps.site_icon,ps.site_color,,pp.permission_order,pp.permission_name,pp.permission_url,ps.site_group')
             ->from('portal_permission pp')
             ->join('portal_sites ps', 'ps.site_id=pp.permission_site')
             ->where_in('pp.permission_site', $s)

@@ -2,24 +2,24 @@
 $site = '';
 $i = 0;
 $il = 1;
-$l = 3;
-if(count($dashboard) > 0){
-    while($i < count($dashboard)){
+$l = 4;
+if(count($session['menu']) > 0){
+    while($i < count($session['menu'])){
         if($il == 1){
             $site .= '<div class="card-deck-wrapper">
                 <div class="card-deck mb-4">';
         }
         $il++;
         $site .= "
-                    <div class=\"card text-white {$dashboard[$i]['site_color']}\">
-                        <div class=\"card-header text-uppercase font-weight-bold\">{$dashboard[$i]['site_name']}</div>
+                    <div class=\"card {$session['menu'][$i]['site_color']} text-white\">
+                        <div class=\"card-header text-uppercase font-weight-bold\">{$session['menu'][$i]['site_name']}</div>
                         <div class=\"card-body \">
-                            <a href=\"".base_url().$dashboard[$i]['permission_url']."\" target=\"_blank\" class=\"card-block stretched-link text-decoration-none\">
+                            <a href=\"".base_url().$session['menu'][$i]['permission_url']."\" target=\"_blank\" class=\"card-block stretched-link text-decoration-none\">
                                 <div class='col-sm-6'>
-                                    <i class=\"fa {$dashboard[$i]['site_icon']} fa-2x text-white\"></i>
+                                    <i class=\"fa {$session['menu'][$i]['site_icon']} fa-2x text-white\"></i>
                                 </div>
                                 <div class='col-sm-6'>
-                                    <p class=\"card-text float-left text-white\"> Total {$dashboard[$i]['data_value']} Tickets.</p>
+                                    <p class=\"card-text float-left text-white\"> {$session['menu'][$i]['permission_name']}</p>
                                 </div>
                             </a>
                         </div>
@@ -54,25 +54,9 @@ if(count($dashboard) > 0){
             </div>
         </div>
         <div class="content p-2 m-1 row">
-            <div class="col-lg-4 col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mx-auto d-block">
-                            <img class="rounded-circle mx-auto d-block" src="./assets/images/profiles/unknown.png" alt="Card image cap">
-                            <h5 class="text-sm-center mt-2 mb-1"><?=$session['user_name']?></h5>
-                            <div class="location text-sm-center"><i class="fa fa-key"></i> <?=$session['group']?></div>
-                        </div>
-                        <hr>
-                        <div class="card-text text-sm-center">
-                            <a href="#"><i class="fab fa-facebook pr-1"></i></a>
-                            <a href="#"><i class="fab fa-twitter pr-1"></i></a>
-                            <a href="#"><i class="fab fa-linkedin pr-1"></i></a>
-                            <a href="#"><i class="fab fa-pinterest pr-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8">
+            
+            
+            <div class="col-12 col-md-12">
             <?=$site?>
             </div>
         </div>
