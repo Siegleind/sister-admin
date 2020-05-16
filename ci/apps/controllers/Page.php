@@ -27,6 +27,7 @@ class Page extends SISTER_Controller
         if($this->pm->detail(['page_url' => $page, 'page_status' => 1])){
             $data['content']['body'] = $this->pm->result;
             $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';
+            $data['body']['option']['stylesheet'][1] = base_url().'assets/css/fix-iframe.css';
             $data['body']['option']['js'][2] = base_url().'assets/scripts/portal/portal.js';
             $data['body']['content'] = $this->load->view('portal/contents/page/view', $data['content'], TRUE);
         }else{
