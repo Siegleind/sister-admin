@@ -93,7 +93,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand brand-logo" href="#">Portal</a>
-                <a class="navbar-brand hidden" href="#">PDB</a>
+                <a class="navbar-brand hidden" href="#">&nbsp;</a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">

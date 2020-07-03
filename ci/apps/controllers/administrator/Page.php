@@ -27,7 +27,7 @@ class Page extends SISTER_Controller
         $data['content']['role'] = $this->rm->getRole(0, 0, array('order' => array('role_name' => 'ASC')));
         $data['content']['page'] = 'Page Content Management';
         $data['content']['site_list'] = $this->psm->get(0, ['site_id !=' => 1], array('order' => array('site_name' => 'ASC')));
-        $data['body']['session'] = $this->state;
+        $data['body']['session'] = $this->session->userdata();
         $data['body']['name'] = 'Manage User';
         $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';
         $data['body']['option']['stylesheet'][1] = base_url().'assets/css/modal_elegant.css';

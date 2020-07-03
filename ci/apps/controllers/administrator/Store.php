@@ -22,7 +22,7 @@ class Store extends SISTER_Controller
     public function index()
     {
         $this->load->helper(array('html','url','form'));
-        $data['body']['session'] = $this->state;
+        $data['body']['session'] = $this->session->userdata();
         $data['body']['name'] = 'Manage Store';
         $data['body']['type'] = $this->load->model('StoreType_model')->get();
         $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';

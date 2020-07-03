@@ -26,7 +26,7 @@ class Role extends SISTER_Controller
         $this->load->model('Role_model', 'rm');
         #$this->output->enable_profiler(TRUE);
         $data['content']['list_access'] = $this->rm->getAccessList();
-        $data['body']['session'] = $this->state;
+        $data['body']['session'] = $this->session->userdata();
         $data['body']['name'] = 'Manage Role';
         #exit(print_r($data['content']['list_access']));
         $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';

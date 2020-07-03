@@ -42,7 +42,7 @@ class User extends SISTER_Controller
     {
         if($this->session->isLoggedIn(true)){
             $this->session->sess_destroy();
-            $this->session->regenerateID();
+            #$this->session->regenerateID();
             $this->load->helper('url');
             redirect('user/login', 'refresh');
         }
@@ -123,15 +123,15 @@ class User extends SISTER_Controller
                         
                         
                         if($this->input->post('remember')){
-                            $to = 60*60*24*30;
-                            $this->session->regenerateID(1, 1, $to);
+                            #$to = 60*60*24*30;
+                            #$this->session->regenerateID(1, 1, $to);
                             $ses['remember'] = true;
                         }else{
-                            $this->session->regenerateID(1);
+                            #$this->session->regenerateID(1);
                         }
                         $this->load->model('SisterController_model', 'SISTER');
                         $this->session->set_userdata($ses);
-                        $this->session->set_userdata('menu', $this->SISTER->getMainMenu($this->session->userdata('site')));
+                        $this->session->set_userdata('menu', $this->SISTER->getMainMenu($this->session->userdata('role_id'),$this->session->userdata('site')));
                         session_write_close();
                     }else{
                         #$return['test'] = $this->User_model->doLogin($input);

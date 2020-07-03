@@ -23,7 +23,7 @@ class Page extends SISTER_Controller
     {
         $this->load->helper('html','url');
         $this->load->model('Page_model', 'pm');
-        $data['body']['session'] = $this->state;
+        $data['body']['session'] = $this->session->userdata();
         if($this->pm->detail(['page_url' => $page, 'page_status' => 1])){
             $data['content']['body'] = $this->pm->result;
             $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';

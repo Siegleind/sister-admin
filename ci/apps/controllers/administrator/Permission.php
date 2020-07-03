@@ -22,7 +22,7 @@ class Permission extends SISTER_Controller
     public function index()
     {
         $this->load->helper(array('html','form'));
-        $data['body']['session'] = $this->state;
+        $data['body']['session'] = $this->session->userdata();
         $data['body']['name'] = 'Manage Site Permission';
         $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';
         $data['body']['option']['stylesheet'][1] = base_url().'assets/css/modal_elegant.css';
@@ -36,9 +36,9 @@ class Permission extends SISTER_Controller
     
     public function detail($sid)
     {
-        $this->load->helper(array('html','url','form'));
+        $this->load->helper(['html','form']);
         $this->load->model('PortalPermission_model', 'ppm');
-        $data['body']['session'] = $this->state;
+        $data['body']['session'] = $this->session->userdata();
         $data['body']['name'] = 'Manage Site Permission';
         $data['body']['option']['stylesheet'][0] = base_url().'assets/modules/DataTables/dataTables.bootstrap4.min.css';
         $data['body']['option']['stylesheet'][1] = base_url().'assets/css/modal_elegant.css';
