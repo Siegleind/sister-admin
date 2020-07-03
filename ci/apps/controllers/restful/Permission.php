@@ -20,7 +20,7 @@ class Permission extends CI_Controller
     }
 	
 	public function list_paged($id) 
-
+    {
         $this->load->model('PortalPermission_model', 'ppm');
         $this->load->helper('url');
         
